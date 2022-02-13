@@ -116,11 +116,9 @@ class PusherBroadcaster extends Broadcaster
     {
         $socket = Arr::pull($payload, 'socket');
 
-        $parameters = $socket !== null ? ['socket_id' => $socket] : [];
-
         try {
             $this->pusher->trigger(
-                $this->formatChannels($channels), $event, $payload, $parameters
+                $this->formatChannels($channels), $event, $payload, $socket
             );
         } catch (ApiErrorException $e) {
             throw new BroadcastException(
